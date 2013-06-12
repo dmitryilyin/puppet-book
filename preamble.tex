@@ -1,9 +1,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english,russian]{babel}
 \usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
 \usepackage{cmap}
-
-%\usepackage{lmodern}
 \usepackage[cm]{fullpage}
 
 \usepackage{tocbibind}
@@ -14,12 +13,37 @@
 \usepackage{indentfirst}
 \usepackage{dirtree}
 \usepackage{color}
+
 \usepackage{listings}
-\lstset{language=Pascal, frame=single} 
+
+\lstdefinelanguage[Puppet]{Ruby}[]{Ruby} {
+morekeywords={it,describe,context,before,after},
+}
+
+\lstset{
+language=[Puppet]Ruby,
+inputencoding=utf8,
+extendedchars=\false,
+captionpos=b,
+tabsize=4,
+frame=none,
+keywordstyle=\color{blue},
+commentstyle=\color{gray},
+stringstyle=\color{red},
+%numbers=left,
+%numberstyle=\tiny,
+%numbersep=5pt,
+breaklines=true,
+showstringspaces=false,
+basicstyle=\footnotesize,
+emph={label},
+aboveskip=10pt,
+belowskip=10pt,
+}
 
 \frenchspacing
 \makeindex
 \parskip 2mm
 
 \usepackage{tikz}
-\usetikzlibrary{shapes,decorations,shadows,shapes.multipart,matrix}
+\usetikzlibrary{shapes,arrows,decorations,shadows,shapes.multipart,matrix}

@@ -1,0 +1,162 @@
+\chapter{Использование Rspec для проверки модулей Puppet}
+
+\section{Подготовка к использованию тестов}
+
+Тестирование поведения модулей и манифестов puppet не предусматривает их запуск на реальной или виртуальной системе, а описывает, какие ресурсы и с какими параметрами должны быть собраны в каталог, который затем был бы исполнен на управляемой системе. Таким образом проверяется логика, реализуемая модулем и манифестом посредством проверки соответствия результатов их работы эталонным результатам в указанных условиях с определёнными параметрами.
+
+Например можно убедиться, что на Debian системе будет установлен пакет apache и создан файл \texttt{/etc/apache/sites-aviable/mysite.ru.conf} c правильным описанием этого сайта и создана символическая ссылка на этот файл /etc/apache/sites-enabled/mysite.ru.conf. А при запуске на Red Hat системе вместо этого будет установлен пакет httpd и создан файл \texttt{/etc/httpd/conf.d/mysite.ru/conf}.
+
+Такой тест совершенно не гарантирует, что все эти действия действительно будут выполнены правильно, он только проверяет правильность постановки задачи для исполнения на управляемой системе. Процесс может завершиться неудачно по множеству причин, которые не зависят от правильности написания этого манифеста.
+
+Хотя использование методов разработки через тестирование может показаться бесполезным для не очень сложных модулей и манифестов, при увеличении количества управляемых ресурсов, появлении сложных условий и логики, поддержке многих конфигураций и версий операционных систем и, особенно, при дальнейшей доработке существующих манифестов отладка и тестирование станет очень сложным. Поэтому Unit тесты, хотя и не заменяют проверки на тестовых системах, позволят определить большинство логических ошибок, регрессий и несоответствий спецификации еще до начала тестирования. Кроме этого хорошо написаные тесты также выполняют функцию "исполняемой документации", описывая поведение каждого манифеста на языке, который легко понятен не только компьютеру, но и человеку.
+
+Чтобы использовать Rspec для тестирования модулей Puppet нужно сначала установать пакет rspec-puppet, который можно найти здесь \url{http://rspec-puppet.com}. Кроме него потребуется установить сам puppet и дополнительный пакет puppetlabs\_spec\_helper.
+
+\begin{verbatim}
+gem install rspec-puppet
+gem install puppetlabs_spec_helper
+gem install puppet
+\end{verbatim}
+
+\section{Тестирование простого класса}
+
+Теперь создадим простой модуль puppet и тесты для него. Предположим, что у нас есть модуль для управления файлом \textbf{/etc/issue}, состоящий из одного класса.
+
+\begin{lstlisting}
+class motd {
+  file { '/etc/motd' :
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => 'Hello!',
+  }
+}
+\end{lstlisting}
+
+Оформим этот класс как модуль, создав соответствующую структуру каталогов и положив этот класс в файл \textbf{init.pp} в каталоге manifests.
+
+\dirtree{%
+.1 modules.
+.2 motd.
+.3 manifests.
+.4 init.pp.
+.3 tests.
+.3 lib.
+.3 files.
+.3 templates.
+}
+
+Теперь воспользуемся скриптом \textbf{rspec-puppet-init} перейдя в каталог этого модуля чтобы создать необходимую для работы Unit тестов структуру файлов и каталогов.
+
+\begin{verbatim}
+ + spec/
+ + spec/classes/
+ + spec/defines/
+ + spec/functions/
+ + spec/hosts/
+ + spec/fixtures/
+ + spec/fixtures/manifests/
+ + spec/fixtures/modules/
+ + spec/fixtures/modules/motd/
+ + spec/fixtures/manifests/site.pp
+ + spec/fixtures/modules/motd/manifests
+ + spec/spec_helper.rb
+ + Rakefile
+\end{verbatim}
+
+\begin{description}
+\item[classes] В этом каталоге нужно размещать файлы, описывающие поведение классов и параметрических классов.
+\item[defines] В этом каталоге нужно размещать описание поведения определений.
+\item[hosts] Здесь размещаются описания работы модуля на разных системах.
+\item[functions] Описания работы специальных функций, если модуль их содержит.
+\item[fixtures] Здесь создаются символические ссылки, имитирующие структуру каталога с модулями puppet чтобы создать подходящие для работы модуля окружение. Файл spec\_helper.rb используется для выполнения puppet в этом окружении.
+\item[Rakefile] Rake --- это система автоматизации, похожая на классический make или fabric, используемый в python, или ant для Java. Этот файл просто описывает действие spec, которое выполняет все тесты в этом модуле. Если вам требуется выполнять какие-то дополнительные задачи до или после работы тестов, то их можно добавить в этот файл.
+\end{description}
+
+Наш модуль описывает только один ресурс --- file с определёнными параметрами. Спецификация его работы выглядит так:
+
+\begin{verbatim}
+require 'spec_helper'
+
+describe 'motd' do
+  it do
+    should contain_file('/etc/motd').with({
+      'ensure' => 'present',
+      'owner'  => 'root',
+      'group'  => 'root',
+      'mode'   => '0644',
+    })
+  end
+
+  it do
+    should contain_file('/etc/motd').with_content('Hello!')
+  end
+
+end
+\end{verbatim}
+
+Сначала мы проверяем, что каталог содержит ресурс file с указанными параметрами, затем проверяем, что содержимое этого файла соответствует задаче. Запустим тест и посмотрим на результат.
+
+\begin{verbatim}
+> rspec -f doc --color spec/classes/init_spec.rb 
+
+motd
+  should contain File[/etc/motd] with ensure => "present", owner => "root",
+                                      group => "root" and mode => "0644"
+  should contain File[/etc/motd] with content => "Hello!"
+
+Finished in 0.0827 seconds
+2 examples, 0 failures
+\end{verbatim}
+
+Оба теста завершено успешно.
+
+Тесты также можно запустить используя rake благодаря задаче, которая описана в Rakefile.
+
+\begin{verbatim}
+rake spec
+\end{verbatim}
+
+Чтобы задать с какими параметрами rspec должен запускаться можно создать файл \textbf{.rspec} в корне этого модуля с таким содержанием:
+
+\begin{verbatim}
+--colour
+--format documentation
+\end{verbatim}
+
+Или можно передать дополнительные параметры, переопределяющие установленные, если нужно один раз выполнить тесты с другими параметрами:
+
+\begin{verbatim}
+rake spec SPEC_OPTS="--format html"
+\end{verbatim}
+
+Теперь предположим, что при создании этого модуля была допущена ошибка и вместо строки 'Hello!' передаётся строка 'Helo!'. Посмотрим на результат тестов.
+
+\begin{verbatim}
+> rake spec
+/usr/bin/ruby1.9.1 -S rspec spec/classes/init_spec.rb
+
+motd
+  should contain File[/etc/motd] with ensure => "present", owner => "root",
+                                      group => "root" and mode => "0644"
+  should contain File[/etc/motd] with content => "Hello!" (FAILED - 1)
+
+Failures:
+
+  1) motd 
+     Failure/Error: should contain_file('/etc/motd').with_content('Hello!')
+       expected that the catalogue would contain File[/etc/motd]
+       with content set to `"Hello!"` but it is set to `"Helo!"` in the catalogue
+     # ./spec/classes/init_spec.rb:15:in `block (2 levels) in <top (required)>'
+
+Finished in 0.08056 seconds
+2 examples, 1 failure
+
+Failed examples:
+
+rspec ./spec/classes/init_spec.rb:14 # motd 
+rake aborted!
+\end{verbatim}
+
+Один из тестов провален, потому что содержимое файла не соответствует ожидаемому, но остальные параметры файла правильные и первый тест успешен. Таким образом такая мелкая ошибка, на поиск которой зачастую может быть потрачено много часов и нервов, была обнаружена еще до начала настоящего тестирование манифеста.
