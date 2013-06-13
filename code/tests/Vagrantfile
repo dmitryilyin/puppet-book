@@ -1,0 +1,14 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant::Config.run do |config|
+
+  config.vm.box = "centos_6_3_x86_64"
+  config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210.box"
+
+  config.vm.host_name = "puppet-test.local"
+  config.vm.boot_mode = :gui
+
+  config.vm.share_folder "v-modules", "/etc/puppet/modules", "."
+
+end

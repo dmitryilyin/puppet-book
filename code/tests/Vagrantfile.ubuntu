@@ -1,0 +1,14 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant::Config.run do |config|
+
+  config.vm.box = "precise64.box"
+  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+
+  config.vm.host_name = "puppet-test.local"
+  config.vm.boot_mode = :gui
+
+  config.vm.share_folder "v-modules", "/etc/puppet/modules", "."
+
+end
