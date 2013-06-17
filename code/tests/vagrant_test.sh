@@ -8,6 +8,7 @@ manifestpath="/vagrant"
 alltests="0"
 oktests="0"
 failedtests="0"
+snapshot="yes"
 
 noop=""
 if [ "${1}" = "noop" ]; then
@@ -27,12 +28,39 @@ runtest() {
   fi
 }
 
+getuuid() {
+  if [ -r ".vagrant" ]; then
+    awk -F '"' '{ print $6 }' ".vagrant"
+    return 0
+  else
+    return 1
+  fi
+}
+
+#MAIN
 
 vagrant up
+if [ "${snapshot}" = "yes" ]; then
+  uuid=`getuuid`
+  vboxmanage snapshot "${uuid}" list | grep -q "before-puppet-test"
+  if [ $? -gt 0 ]; then
+    vboxmanage snapshot "${uuid}" take "before-puppet-test"
+  fi
+fi
+
+#TESTS START
 runtest "ntp/tests/ntp.pp"
 runtest "acpid/tests/acpid_on.pp"
 runtest "acpid/tests/acpid_off.pp"
 runtest "acpid/tests/acpid_on.pp"
+runtest "vimuser/tests/vimusers_add.pp"
+runtest "vimuser/tests/vimusers_remove.pp"
+#TESTS END
+
+if [ "${snapshot}" = "yes" ]; then
+  vagrant halt -f
+  vboxmanage snapshot "${uuid}" restorecurrent
+fi
 
 if [ "${failedtests}" -eq "0" ]; then
   echo "\033[32m${oktests}/${alltests} TESTS OK\n${failedtests}/${alltests} TESTS FAILED\033[0m"
