@@ -1,12 +1,12 @@
-class ssh($status = true) {
+class acpid($status = true) {
 
   if ($::osfamily == 'Debian') {
-    $package = 'openssh-server'
-    $service = 'ssh'
+    $package = 'acpid'
+    $service = 'acpid'
   }
   elsif ($::osfamily == 'RedHat') {
-    $package = 'openssh-server'
-    $service = 'sshd'
+    $package = 'acpid'
+    $service = 'acpid'
   }
   else {
     fail("Module ${module_name} is not supported on ${operatingsystem}!")
