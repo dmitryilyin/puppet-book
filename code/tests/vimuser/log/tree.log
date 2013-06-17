@@ -1,0 +1,8 @@
+vimuser
+vimuser/templates
+vimuser/templates/vimrc.erb
+vimuser/manifests
+vimuser/manifests/init.pp
+vimuser/tests
+vimuser/tests/vimuser_add.pp
+vimuser/tests/vimuser_remove.pp

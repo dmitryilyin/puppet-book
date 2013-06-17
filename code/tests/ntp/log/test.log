@@ -1,0 +1,4 @@
+info: Applying configuration version '1371477288'
+notice: /Stage[main]/Ntp/Package[ntp]/ensure: created
+notice: /Stage[main]/Ntp/Service[ntpd]/ensure: ensure changed 'stopped' to 'running'
+notice: Finished catalog run in 9.99 seconds

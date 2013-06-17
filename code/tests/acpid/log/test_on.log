@@ -1,0 +1,4 @@
+info: Applying configuration version '1371478917'
+notice: /Stage[main]/Acpid/Package[acpid]/ensure: created
+notice: /Stage[main]/Acpid/Service[acpid]/ensure: ensure changed 'stopped' to 'running'
+notice: Finished catalog run in 1.03 seconds

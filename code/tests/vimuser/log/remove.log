@@ -1,0 +1,4 @@
+info: Applying configuration version '1371479936'
+notice: /Stage[main]//Vimuser[user2]/User[user2]/ensure: removed
+notice: /Stage[main]//Vimuser[user1]/User[user1]/ensure: removed
+notice: Finished catalog run in 0.09 seconds

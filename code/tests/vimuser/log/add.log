@@ -1,0 +1,6 @@
+info: Applying configuration version '1371479929'
+notice: /Stage[main]//Vimuser[user2]/User[user2]/ensure: created
+notice: /Stage[main]//Vimuser[user1]/User[user1]/ensure: created
+notice: /Stage[main]//Vimuser[user1]/File[/home/user1/.vimrc]/ensure: created
+notice: /Stage[main]//Vimuser[user2]/File[/home/user2/.vimrc]/ensure: created
+notice: Finished catalog run in 0.12 seconds

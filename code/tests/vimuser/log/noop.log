@@ -1,0 +1,10 @@
+info: Applying configuration version '1371480001'
+notice: /Stage[main]//Vimuser[user2]/User[user2]/ensure: current_value absent, should be present (noop)
+notice: /Stage[main]//Vimuser[user1]/User[user1]/ensure: current_value absent, should be present (noop)
+err: /Stage[main]//Vimuser[user1]/File[/home/user1/.vimrc]: Could not evaluate: Could not find user user1
+err: /Stage[main]//Vimuser[user2]/File[/home/user2/.vimrc]: Could not evaluate: Could not find user user2
+notice: Vimuser[user2]: Would have triggered 'refresh' from 1 events
+notice: Vimuser[user1]: Would have triggered 'refresh' from 1 events
+notice: Class[Main]: Would have triggered 'refresh' from 2 events
+notice: Stage[main]: Would have triggered 'refresh' from 1 events
+notice: Finished catalog run in 0.05 seconds

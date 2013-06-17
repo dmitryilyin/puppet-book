@@ -1,0 +1,8 @@
+ntp
+ntp/manifests
+ntp/manifests/init.pp
+ntp/tests
+ntp/tests/ntp.pp
+ntp/files
+ntp/files/ubuntu-ntp.conf
+ntp/files/centos-ntp.conf

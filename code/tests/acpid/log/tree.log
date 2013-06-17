@@ -1,0 +1,6 @@
+acpid
+acpid/manifests
+acpid/manifests/init.pp
+acpid/tests
+acpid/tests/acpid_off.pp
+acpid/tests/acpid_on.pp

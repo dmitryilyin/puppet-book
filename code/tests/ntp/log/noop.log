@@ -1,0 +1,9 @@
+info: Applying configuration version '1371477255'
+notice: /Stage[main]/Ntp/Package[ntp]/ensure: current_value absent, should be present (noop)
+notice: /Stage[main]/Ntp/File[/etc/ntp.conf]/ensure: current_value absent, should be file (noop)
+info: /Stage[main]/Ntp/File[/etc/ntp.conf]: Scheduling refresh of Service[ntpd]
+notice: /Stage[main]/Ntp/Service[ntpd]/ensure: current_value stopped, should be running (noop)
+notice: /Stage[main]/Ntp/Service[ntpd]: Would have triggered 'refresh' from 1 events
+notice: Class[Ntp]: Would have triggered 'refresh' from 4 events
+notice: Stage[main]: Would have triggered 'refresh' from 1 events
+notice: Finished catalog run in 0.14 seconds
