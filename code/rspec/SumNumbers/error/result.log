@@ -1,0 +1,28 @@
+
+SumNumbers
+  should have zero sum to begin with
+  should have given initial sum (FAILED - 1)
+  should add every new number to the sum
+  should add all new numbers to initial sum (FAILED - 2)
+
+Failures:
+
+  1) SumNumbers should have given initial sum
+     Failure/Error: sn.out.should == 3
+       expected: 3
+            got: 0 (using ==)
+     # ./SumNumbers_spec.rb:10:in `block (2 levels) in <top (required)>'
+
+  2) SumNumbers should add all new numbers to initial sum
+     Failure/Error: sn.out.should == 4
+       expected: 4
+            got: 2 (using ==)
+     # ./SumNumbers_spec.rb:21:in `block (2 levels) in <top (required)>'
+
+Finished in 0.00166 seconds
+4 examples, 2 failures
+
+Failed examples:
+
+rspec ./SumNumbers_spec.rb:8 # SumNumbers should have given initial sum
+rspec ./SumNumbers_spec.rb:18 # SumNumbers should add all new numbers to initial sum
