@@ -53,8 +53,8 @@ runtest "ntp/tests/ntp.pp"
 runtest "acpid/tests/acpid_on.pp"
 runtest "acpid/tests/acpid_off.pp"
 runtest "acpid/tests/acpid_on.pp"
-runtest "vimuser/tests/vimusers_add.pp"
-runtest "vimuser/tests/vimusers_remove.pp"
+runtest "vimuser/tests/vimuser_add.pp"
+runtest "vimuser/tests/vimuser_remove.pp"
 #TESTS END
 
 if [ "${snapshot}" = "yes" ]; then
