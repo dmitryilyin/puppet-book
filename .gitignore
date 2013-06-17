@@ -29,3 +29,4 @@
 *.fls
 .vagrant
 /*.log
+.texpadtmp
