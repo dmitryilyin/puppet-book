@@ -1,49 +1,40 @@
 [default] VM already created. Booting if it's not already running...
-[default] Clearing any previously set forwarded ports...
-[default] Forwarding ports...
-[default] -- 22 => 2222 (adapter 1)
-[default] Creating shared folders metadata...
-[default] Clearing any previously set network interfaces...
+[default] Resuming suspended VM...
 [default] Booting VM...
 [default] Waiting for VM to boot. This can take a few minutes.
 [default] VM booted and ready for use!
-[default] Setting host name...
-[default] Mounting shared folders...
-[default] -- v-root: /vagrant
-[default] -- v-modules: /etc/puppet/modules
-info: Applying configuration version '1371485651'
+info: Applying configuration version '1371572840'
 notice: /Stage[main]/Ntp/Package[ntp]/ensure: created
 notice: /Stage[main]/Ntp/Service[ntpd]/ensure: ensure changed 'stopped' to 'running'
 info: Creating state file /var/lib/puppet/state/state.yaml
-notice: Finished catalog run in 19.06 seconds
+notice: Finished catalog run in 30.15 seconds
 Test OK
-info: Applying configuration version '1371485675'
+info: Applying configuration version '1371572876'
 notice: /Stage[main]/Acpid/Package[acpid]/ensure: created
 notice: /Stage[main]/Acpid/Service[acpid]/ensure: ensure changed 'stopped' to 'running'
-notice: Finished catalog run in 1.35 seconds
+notice: Finished catalog run in 1.34 seconds
 Test OK
-info: Applying configuration version '1371485682'
+info: Applying configuration version '1371572883'
 notice: /Stage[main]/Acpid/Service[acpid]/ensure: ensure changed 'running' to 'stopped'
-notice: Finished catalog run in 0.28 seconds
+notice: Finished catalog run in 0.27 seconds
 Test OK
-info: Applying configuration version '1371485688'
+info: Applying configuration version '1371572889'
 notice: /Stage[main]/Acpid/Service[acpid]/ensure: ensure changed 'stopped' to 'running'
-notice: Finished catalog run in 0.18 seconds
+notice: Finished catalog run in 0.19 seconds
 Test OK
-info: Applying configuration version '1371485693'
+info: Applying configuration version '1371572894'
 notice: /Stage[main]//Vimuser[user2]/User[user2]/ensure: created
 notice: /Stage[main]//Vimuser[user1]/User[user1]/ensure: created
 notice: /Stage[main]//Vimuser[user1]/File[/home/user1/.vimrc]/ensure: created
 notice: /Stage[main]//Vimuser[user2]/File[/home/user2/.vimrc]/ensure: created
-notice: Finished catalog run in 0.12 seconds
+notice: Finished catalog run in 0.13 seconds
 Test OK
-info: Applying configuration version '1371485699'
+info: Applying configuration version '1371572900'
 notice: /Stage[main]//Vimuser[user2]/User[user2]/ensure: removed
 notice: /Stage[main]//Vimuser[user1]/User[user1]/ensure: removed
-notice: Finished catalog run in 0.08 seconds
+notice: Finished catalog run in 0.09 seconds
 Test OK
 [default] Forcing shutdown of VM...
-Restoring snapshot 808cf3b3-8e42-48dc-b3a1-da3a2adc3fc9
-0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
+Restoring snapshot 7be043a9-9f1f-4fed-a7de-e916c01cf263
 6/6 TESTS OK
 0/6 TESTS FAILED

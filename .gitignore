@@ -25,6 +25,7 @@
 *.mtc
 *.mtc0
 *.pdf
+*.swp
 *~
 *.fls
 .vagrant

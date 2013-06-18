@@ -58,13 +58,13 @@ puppet agent --environment=testing --test
 
 Начнём с простого модуля, содержащего только один обычный класс. Этот модуль предназначен для установки и настройки NTP сервера на операционных системах семейства Debian и RedHat. Сначала производится установка пакета, потом скачивается конфигурационный файл и запускается сам ntp демон. Конфигурационные файлы отличаются для разных операционных систем. Правильный файл должен автоматически выбираться из набора заранее приготовленных файлов.
 
-\lstinputlisting[title={Модуль для установки и настройки NTP}]{code/tests/ntp/manifests/init.pp}
+\lstinputlisting[title={Модуль для установки и настройки NTP}]{code/ntp/manifests/init.pp}
 
 Для того, чтобы протестировать этот модуль создадим каталог \textbf{tests}, и положим в него маленький манифест, который включает этот модуль.
 
-\VerbatimInput[fontsize=\normalsize,frame=none]{code/tests/ntp/log/tree.log}
+\VerbatimInput[fontsize=\normalsize,frame=none]{code/ntp/log/tree.log}
 
-\lstinputlisting[title={Тест включения модуля ntp}]{code/tests/ntp/tests/ntp.pp}
+\lstinputlisting[title={Тест включения модуля ntp}]{code/ntp/tests/ntp.pp}
 
 Теперь попробуем применить этот манифест. Сначала запустим его в режиме без настоящих изменений.
 
@@ -72,11 +72,11 @@ puppet agent --environment=testing --test
 puppet apply --verbose --noop --modulepath="." "ntp/tests/ntp.pp"
 \end{verbatim}
 
-\VerbatimInput{code/tests/ntp/log/noop.log}
+\VerbatimInput{code/ntp/log/noop.log}
 
 Был показан список изменений, которые могли бы быть выполнены при настоящем проходе. Теперь выполним эту команду без ключа \textbf{--noop}.
 
-\VerbatimInput{code/tests/ntp/log/test.log}
+\VerbatimInput{code/ntp/log/test.log}
 
 Пакет был успешно установлен и демон запущен.
 
@@ -84,14 +84,14 @@ puppet apply --verbose --noop --modulepath="." "ntp/tests/ntp.pp"
 
 Теперь создадим несложный модуль, содержащий параметрический класс. Для примера попробуем устанавливать и управлять демоном \textbf{acpid}. Модуль должен уметь включать и выключать сервис, например если он не нужен на виртуальной системе.
 
-\lstinputlisting[title={Модуль для установки и управления acpid}]{code/tests/acpid/manifests/init.pp}
+\lstinputlisting[title={Модуль для установки и управления acpid}]{code/acpid/manifests/init.pp}
 
 Чтобы протестировать работу этого модуля нужно запустить его на разных операционных системах как в режиме включения, так и выключения сервиса. Создадим в корне модуля папку \textbf{tests}, а в ней создадим два файла, использующих модуль acpid в режиме включения и выключения.
 
-\VerbatimInput[fontsize=\normalsize,frame=none]{code/tests/acpid/log/tree.log}
+\VerbatimInput[fontsize=\normalsize,frame=none]{code/acpid/log/tree.log}
 
-\lstinputlisting[title={Тест включения acpid}]{code/tests/acpid/tests/acpid_on.pp}
-\lstinputlisting[title={Тест выключения acpid}]{code/tests/acpid/tests/acpid_off.pp}
+\lstinputlisting[title={Тест включения acpid}]{code/acpid/tests/acpid_on.pp}
+\lstinputlisting[title={Тест выключения acpid}]{code/acpid/tests/acpid_off.pp}
 
 Теперь попробуем запустить эти тесты.
 
@@ -100,8 +100,8 @@ puppet apply --verbose --modulepath="." "acpid/tests/acpid_on.pp"
 puppet apply --verbose --modulepath="." "acpid/tests/acpid_off.pp"
 \end{verbatim}
 
-\VerbatimInput{code/tests/acpid/log/test_on.log}
-\VerbatimInput{code/tests/acpid/log/test_off.log}
+\VerbatimInput{code/acpid/log/test_on.log}
+\VerbatimInput{code/acpid/log/test_off.log}
 
 Первый тест установил пакет \textbf{acpid} и включил сервис, а второй - выключил сервис.
 
@@ -109,14 +109,14 @@ puppet apply --verbose --modulepath="." "acpid/tests/acpid_off.pp"
 
 В последнем примере мы создадим определение, или определяемый ресурс. В отличие от классов и параметрических классов может быть включено несколько экземпляров определений. Предположим, что нам нужно создавать пользователей, автоматически создавая в их домашнем каталоге конфигурационный файл для vim.
 
-\lstinputlisting[title={Создание пользователя вместе с конфигурационным файлом}]{code/tests/vimuser/manifests/init.pp}
+\lstinputlisting[title={Создание пользователя вместе с конфигурационным файлом}]{code/vimuser/manifests/init.pp}
 
 Добавим два тестовых манифеста, которые создают и удаляют пользователей.
 
-\VerbatimInput[fontsize=\normalsize,frame=none]{code/tests/vimuser/log/tree.log}
+\VerbatimInput[fontsize=\normalsize,frame=none]{code/vimuser/log/tree.log}
 
-\lstinputlisting[title={Создание пользователей}]{code/tests/vimuser/tests/vimuser_add.pp}
-\lstinputlisting[title={Удаление пользователей}]{code/tests/vimuser/tests/vimuser_remove.pp}
+\lstinputlisting[title={Создание пользователей}]{code/vimuser/tests/vimuser_add.pp}
+\lstinputlisting[title={Удаление пользователей}]{code/vimuser/tests/vimuser_remove.pp}
 
 Сначала запустим тест создания пользователей с ключём \textbf{noop}.
 
@@ -124,7 +124,7 @@ puppet apply --verbose --modulepath="." "acpid/tests/acpid_off.pp"
 puppet apply --verbose --noop --modulepath="." "vimusers/tests/vimuser_add.pp"
 \end{verbatim}
 
-\VerbatimInput{code/tests/vimuser/log/noop.log}
+\VerbatimInput{code/vimuser/log/noop.log}
 
 Здесь мы видим, что попытка проверить возможность создания файлов привела к ошибке. Это произошло потому, что в тестовом запуске пользователи на самом деле не были созданы, и файлы создать не получилось, поскольку таких пользователей не существует. При нормальном запуске пользователи были бы созданы, и файлы тоже были бы нормально обработаны. Этот пример показывает, что иногда Puppet агент в режиме \textbf{noop} может показывать неверный результат, и не нужно полностью доверять его результатам без проверки.
 
@@ -134,11 +134,11 @@ puppet apply --verbose --noop --modulepath="." "vimusers/tests/vimuser_add.pp"
 puppet apply --verbose --modulepath="." "vimuser/tests/vimuser_add.pp"
 \end{verbatim}
 
-\VerbatimInput{code/tests/vimuser/log/add.log}
+\VerbatimInput{code/vimuser/log/add.log}
 
 Теперь запустим второй манифест и проверим удаление пользователей.
 
-\VerbatimInput{code/tests/vimuser/log/remove.log}
+\VerbatimInput{code/vimuser/log/remove.log}
 
 \subsection{Автоматизация модульного тестирования}
 
@@ -194,18 +194,18 @@ vagrant ssh
 
 Теперь подготовим скрипт, который сможет автоматически запускать тесты всех Puppet модулей и сообщать о результатах тестирования. Сначала создадим несложный Vagrantfile, который позволит создать виртуальную систему Centos6 x64:
 
-\VerbatimInput{code/tests/Vagrantfile}
+\VerbatimInput{code/Vagrantfile}
 
 Теперь напишем скрипт, который автоматически запускает в виртуальном окружении команды Puppet, выполняя по очереди все модульные тесты.
 
-\lstinputlisting[title={Скрипт для автоматического тестирования модулей},language=Bash]{code/tests/vagrant_test.sh}
+\lstinputlisting[title={Скрипт для автоматического тестирования модулей},language=Bash]{code/vagrant_test.sh}
 
 Запустим этот скрипт чтобы выполнить все рассмотренные выше модульные тесты и вывести общий результат по всем тестам.
 
-\VerbatimInput{code/tests/vagrant_test.log}
+\VerbatimInput{code/vagrant_test.log}
 
 После завершения тестирования виртуальная системы будет возвращена в исходное состояние при помощи snapshot. Если при тестировании были обнаружены неполадки, то теперь можно их исправить и повторить тесты. Системы автоматического тестирование могут использовать подобные скрипты для регулярной проверки всех используемых Puppet модулей и сбора статистики по успешных проходам и найденным ошибкам.
 
 Если требуется тестирование в нескольких условиях, например в разных операционных системах, то можно повторять тесты с разными файлами-образами, подменяя их имя в Vagrantfile, или передавая имя файла и путь к нему через переменные окружения, например вот так:
 
-\lstinputlisting[title={Передача переменных среды в Vagrantfile}]{code/tests/Vagrantfile.env}
+\lstinputlisting[title={Передача переменных среды в Vagrantfile}]{code/Vagrantfile.env}
