@@ -1,0 +1,8 @@
+/usr/bin/ruby1.9.1 -S rspec spec/classes/motd_spec.rb
+
+motd
+  should contain File[/etc/motd] with ensure => "present", owner => "root", group => "root" and mode => "0644"
+  should contain File[/etc/motd] with content => "Hello!"
+
+Finished in 0.08313 seconds
+2 examples, 0 failures

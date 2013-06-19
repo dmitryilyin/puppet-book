@@ -1,10 +1,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english,russian]{babel}
-\usepackage[T2A]{fontenc}
-\usepackage[utf8]{inputenc}
+%\usepackage[T2A]{fontenc}
 \usepackage{cmap}
 \usepackage[cm]{fullpage}
-
 \usepackage{tocbibind}
 \usepackage{verbatim}
 \usepackage{longtable}
@@ -12,6 +10,10 @@
 \usepackage{graphicx}
 \usepackage{indentfirst}
 \usepackage{xcolor}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,decorations,shadows,shapes.multipart,matrix}
+
 \usepackage{fancyvrb}
 \fvset{
   frame=lines,
@@ -19,11 +21,9 @@
 }
 
 \usepackage{listings}
-
 \lstdefinelanguage[Puppet]{Ruby}[]{Ruby} {
-morekeywords={it,describe,context,before,after},
+morekeywords={it,let,describe,context,before,after},
 }
-
 \lstset{
 language=[Puppet]Ruby,
 inputencoding=utf8,
@@ -48,8 +48,5 @@ belowskip=10pt,
 \frenchspacing
 \makeindex
 \parskip 2mm
-
-\usepackage{tikz}
-\usetikzlibrary{shapes,arrows,decorations,shadows,shapes.multipart,matrix}
 
 \newcommand{\file}[1] {{\color{violet}\bfseries #1}}

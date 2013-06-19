@@ -1,0 +1,19 @@
+/usr/bin/ruby1.9.1 -S rspec spec/classes/motd_spec.rb
+
+motd
+  should contain File[/etc/motd] with ensure => "present", owner => "root", group => "root" and mode => "0644"
+  should contain File[/etc/motd] with content => "Hello!" (FAILED - 1)
+
+Failures:
+
+  1) motd 
+     Failure/Error: should contain_file('/etc/motd').with_content('Hello!')
+       expected that the catalogue would contain File[/etc/motd] with content set to `"Hello!"` but it is set to `"Helo!"` in the catalogue
+     # ./spec/classes/motd_spec.rb:14:in `block (2 levels) in <top (required)>'
+
+Finished in 0.08278 seconds
+2 examples, 1 failure
+
+Failed examples:
+
+rspec ./spec/classes/motd_spec.rb:13 # motd 
