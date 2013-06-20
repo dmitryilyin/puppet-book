@@ -1,0 +1,35 @@
+/usr/bin/ruby1.9.1 -S rspec spec/classes/apache_freebsd_spec.rb spec/classes/apache_spec.rb spec/defines/vhost_spec.rb spec/functions/generate_spec.rb spec/functions/md5_spec.rb spec/hosts/myserver_spec.rb
+
+apache
+  freebsd
+    should raise Puppet::Error with message matching /Module apache is not supported on FreeBSD!/
+
+apache
+  ubuntu
+    should contain Package[apache2] with ensure => "installed"
+    uninstall
+      should contain Package[apache2] with ensure => "absent"
+  centos
+    should contain Package[httpd] with ensure => "installed"
+    uninstall
+      should contain Package[httpd] with ensure => "absent"
+
+apache::site
+  ubuntu
+    should contain File[/etc/apache2/sites-available/mysite.ru.conf]
+    should contain File[/etc/apache2/sites-enabled/mysite.ru.conf] with ensure => "link" and target => "/etc/apache2/sites-available/mysite.ru.conf"
+  centos
+    should contain File[/etc/httpd/conf.d/mysite.ru.conf]
+
+generate
+  should run
+
+md5
+  should run
+
+myserver.example.com
+  should include Class[apache]
+  should contain Apache::Site[mysite.ru]
+
+Finished in 0.41597 seconds
+12 examples, 0 failures
