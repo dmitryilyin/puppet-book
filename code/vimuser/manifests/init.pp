@@ -1,3 +1,13 @@
+# = Определение: vimuser
+#
+# Создаёт тестового пользователя и конфигурационный файл vim
+# в его домашнем каталоге.
+#
+# == Параметры: 
+# 
+# [*ensure*] Создать или удалить пользователя? [present, absent]
+# [*groups*] Массив групп, в которые пользователь должен входить.
+#
 define vimuser(
   $ensure = 'present',
   $groups = [],
@@ -12,7 +22,7 @@ define vimuser(
     groups     => $groups,
     managehome => true,
     membership => 'minimum',
-  } 
+  }
 
   if ($ensure == 'present') {
     file { "/home/${title}/.vimrc" :

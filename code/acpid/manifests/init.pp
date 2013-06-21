@@ -1,3 +1,11 @@
+# = Класс: acpid
+#
+# Простой класс, который устанавливает и запускает службу acpid
+#
+# == Параметры
+#
+# [*status*] Запустить ли службу? [true, false]
+#
 class acpid($status = true) {
 
   if ($::osfamily == 'Debian') {
@@ -9,7 +17,7 @@ class acpid($status = true) {
     $service = 'acpid'
   }
   else {
-    fail("Module ${module_name} is not supported on ${operatingsystem}!")
+    fail("Module ${module_name} is not supported on ${::operatingsystem}!")
   }
 
   if ($status) {

@@ -1,3 +1,8 @@
+# = Класс: ntp
+#
+# Демонстрационный класс, который устанавливает пакет ntp,
+# создаёт конфигурационный файл и запускает службу ntp.
+#
 class ntp {
   if $::osfamily == 'RedHat' {
     $package   = 'ntp'
@@ -11,7 +16,7 @@ class ntp {
     $conf_from = 'ubuntu-ntp.conf'
   }
   else {
-    fail("Module ${module_name} is not supported on ${operatingsystem}!")
+    fail("Module ${module_name} is not supported on ${::operatingsystem}!")
   }
 
   package { $package :
@@ -28,7 +33,7 @@ class ntp {
 
   service { $service :
     ensure     => 'running',
-    enable     => 'true',
+    enable     => true,
     hasrestart => true,
     hasstatus  => true,
   }

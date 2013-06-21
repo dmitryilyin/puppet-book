@@ -1,3 +1,7 @@
+# = Класс: motd
+#
+# Демонстрационный класс, который создаёт файл /etc/motd.
+#
 class motd {
   file { '/etc/motd' :
     ensure  => present,

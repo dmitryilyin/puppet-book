@@ -1,8 +1,8 @@
 vimuser { 'user1' :
-  ensure => present, 
+  ensure => present,
 }
 
 vimuser { 'user2' :
-  ensure => present, 
+  ensure => present,
   groups => ['adm'],
-} 
+}

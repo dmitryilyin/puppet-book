@@ -31,3 +31,4 @@
 .vagrant
 /*.log
 .texpadtmp
+.project

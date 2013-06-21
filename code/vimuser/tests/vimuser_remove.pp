@@ -1,7 +1,7 @@
 vimuser { 'user1' :
-  ensure => absent, 
+  ensure => absent,
 }
 
 vimuser { 'user2' :
-  ensure => absent, 
-} 
+  ensure => absent,
+}
