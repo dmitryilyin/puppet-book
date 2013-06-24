@@ -32,3 +32,4 @@
 /*.log
 .texpadtmp
 .project
+Gemfile.lock
