@@ -1,0 +1,12 @@
+
+SumNumbers
+  should have zero sum to begin with
+  should have given initial sum
+  should add every new number to the sum
+  should add all new numbers to initial sum
+  should substract given value
+  should be positive if sum is more ther zero
+  should not be positive if sum is lesser or equal zero
+
+Finished in 0.00153 seconds
+7 examples, 0 failures

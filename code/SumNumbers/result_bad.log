@@ -1,0 +1,24 @@
+
+BadSumNumbers
+  should have zero sum to begin with
+  should have given initial sum
+  should add every new number to the sum
+  should add all new numbers to initial sum
+  should substract given value (FAILED - 1)
+  should be positive if sum is more ther zero
+  should not be positive if sum is lesser or equal zero
+
+Failures:
+
+  1) BadSumNumbers should substract given value
+     Failure/Error: sn.sum.should == 2
+       expected: 2
+            got: 8 (using ==)
+     # ./spec/BadSumNumbers_spec.rb:26:in `block (2 levels) in <top (required)>'
+
+Finished in 0.0016 seconds
+7 examples, 1 failure
+
+Failed examples:
+
+rspec ./spec/BadSumNumbers_spec.rb:23 # BadSumNumbers should substract given value
