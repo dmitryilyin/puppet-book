@@ -16,7 +16,7 @@ class apache(
   } elsif ($::osfamily == 'Debian') {
     $package = 'apache2'
   } else {
-    fail("Module ${::module_name} is not supported on ${::operatingsystem}!")
+    fail("Module ${module_name} is not supported on ${::operatingsystem}!")
   }
 
   if ($install) {

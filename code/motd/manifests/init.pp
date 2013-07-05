@@ -3,7 +3,7 @@
 # Демонстрационный класс, который создаёт файл /etc/motd.
 #
 class motd {
-  file { '/etc/motd' :
+  file { "/etc/motd" :
     ensure  => present,
     owner   => 'root',
     group   => 'root',

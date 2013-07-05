@@ -1,5 +1,4 @@
-node default {
-}
+node default {}
 
 node 'myserver.example.com' {
   class { 'apache' :}
